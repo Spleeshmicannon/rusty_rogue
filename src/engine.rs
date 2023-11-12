@@ -25,6 +25,9 @@ pub struct Engine {
 impl Engine {
     pub fn new(width: i32, height: i32, tick_rate: f64) -> Self {
         let core = Core::init().expect("Failed to initialise allegro core");
+        core.install_keyboard().unwrap();
+        core.install_mouse().unwrap();
+
         let font_addon = FontAddon::init(&core).expect("Failed to initialise allegro font");
         ImageAddon::init(&core).expect("Failed to initialise image addon");
         
@@ -35,6 +38,8 @@ impl Engine {
         let queue = EventQueue::new(&core).expect("Failed to initialise event queue");
         queue.register_event_source(display.get_event_source());
         queue.register_event_source(timer.get_event_source());
+        queue.register_event_source(core.get_keyboard_event_source().unwrap());
+        queue.register_event_source(core.get_mouse_event_source().unwrap());
 
         timer.start();
 
@@ -55,7 +60,6 @@ impl Engine {
 
     pub fn manage_events(&mut self) -> Option<Event> {
         let event = self.queue.wait_for_event();
-        
         match event {
             DisplayClose{..} => self.running = false,
             TimerTick{..} => self.redraw = true,
@@ -85,7 +89,7 @@ impl Engine {
         self.draw_id += 1;
         return res_id;
     }
-
+    
     #[inline]
     pub fn set_sprite_x(&mut self, id: usize, x: i32) {
         self.draw_queue.get_mut(id).unwrap().x = x;
@@ -94,6 +98,16 @@ impl Engine {
     #[inline]
     pub fn set_sprite_y(&mut self, id: usize, y: i32) {
         self.draw_queue.get_mut(id).unwrap().y = y;
+    }
+
+     #[inline]
+    pub fn inc_sprite_x(&mut self, id: usize, x: i32) {
+        self.draw_queue.get_mut(id).unwrap().x += x;
+    }
+
+    #[inline]
+    pub fn inc_sprite_y(&mut self, id: usize, y: i32) {
+        self.draw_queue.get_mut(id).unwrap().y += y;
     }
 
     #[inline]
