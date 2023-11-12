@@ -68,7 +68,7 @@ impl Engine {
         return None;
     }
 
-    pub fn redraw(&mut self) {
+    pub fn redraw(&mut self) -> bool {
         if self.redraw {
             self.redraw = false;
             for sprite in &self.draw_queue {
@@ -76,7 +76,9 @@ impl Engine {
             }
             self.core.flip_display();
             self.core.clear_to_color(Color::from_rgb(0,0,0));
+            return true;
         }
+        return false;
     }
 
     pub fn is_running(&self) -> bool {
