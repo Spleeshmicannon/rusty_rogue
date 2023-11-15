@@ -2,12 +2,12 @@ extern crate allegro;
 extern crate allegro_font;
 extern crate allegro_image;
 
-mod keymanager;
+mod key_manager;
 mod sprite;
 mod engine;
 
 use crate::engine::*;
-use crate::keymanager::*;
+use crate::key_manager::*;
 use allegro::*;
 
 allegro_main!
@@ -27,7 +27,12 @@ allegro_main!
             Some(event) => {
                 match event {
                     Event::KeyUp { keycode, ..} => keydown.set_key(keycode, false),
-                    Event::KeyDown { keycode, .. }=> keydown.set_key(keycode, true),
+                    Event::KeyDown { keycode, .. }=> {
+                        if keycode = KeyCode::ESC {
+                            engine.stop();
+                        }
+                        keydown.set_key(keycode, true);
+                    },
                     _ => {},
                 }
             }
@@ -35,7 +40,3 @@ allegro_main!
         }
     }
 }
-
-
-
-

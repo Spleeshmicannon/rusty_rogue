@@ -6,6 +6,7 @@ use allegro_font::*;
 use allegro_image::*;
 use std::option::Option;
 use std::collections::VecDeque;
+use std::vec::Vec;
 use crate::sprite::Sprite;
 
 
@@ -85,6 +86,10 @@ impl Engine {
         self.running
     }
 
+    pub fn stop(&mut self) {
+        self.running = false;
+    }
+
     pub fn create_sprite(&mut self, path_to_image: &'static str, width: i32, height: i32) -> usize {
         self.draw_queue.push_back(Sprite::new(&self.core, path_to_image, width, height));
         let res_id = self.draw_id;
@@ -102,7 +107,7 @@ impl Engine {
         self.draw_queue.get_mut(id).unwrap().y = y;
     }
 
-     #[inline]
+    #[inline]
     pub fn inc_sprite_x(&mut self, id: usize, x: i32) {
         self.draw_queue.get_mut(id).unwrap().x += x;
     }
@@ -122,4 +127,19 @@ impl Engine {
         self.draw_queue.get_mut(id).unwrap().height = height;
     }
 
+    #[inline]
+    pub fn check_collisions(&self, id:usize) -> Vec<usize> {
+        let result: Vec<usize> = vec![];
+        let pof_sprite: &Sprite; 
+        match self.draw_queue.get(id) {
+            Some(sprite) => pof_sprite = sprite,
+            None => return result,
+        }
+        
+        for i in 0..self.draw_queue.len() {
+            
+        }
+
+        return result;
+    }
 }
