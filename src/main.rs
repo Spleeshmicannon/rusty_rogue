@@ -28,7 +28,7 @@ allegro_main!
                 match event {
                     Event::KeyUp { keycode, ..} => keydown.set_key(keycode, false),
                     Event::KeyDown { keycode, .. }=> {
-                        if keycode = KeyCode::ESC {
+                        if keycode == KeyCode::Escape {
                             engine.stop();
                         }
                         keydown.set_key(keycode, true);
