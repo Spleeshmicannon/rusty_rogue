@@ -9,3 +9,9 @@ edition = "2021"
 allegro = "0.0.44"
 allegro_font = "0.0.44"
 allegro_image = "0.0.44"
+
+[target.x86_64-pc-windows-gnu]
+linker = "x86_64-pc-windows-gnu"
+
+[target.x86_64-unknown-linux-gnu]
+linker = "x86_64-unknown-linux-gnu"
