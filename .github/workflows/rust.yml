@@ -20,6 +20,7 @@ jobs:
     - name: Build (Release)
       run: | 
         cargo build --target=x86_64-unknown-linux-gnu --release
+        cp -r assets target/x86_64-unknown-linux-gnu/release/        
         #cargo build --target=x86_64-pc-windows-gnu --release
     - name: Upload Linux Binary
       uses: actions/upload-artifact@v2
