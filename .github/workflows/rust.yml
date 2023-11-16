@@ -10,6 +10,7 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
+
   build_and_test:
     runs-on: ubuntu-latest
     steps:
@@ -20,21 +21,19 @@ jobs:
       run: cargo build --verbose
     - name: Run tests
       run: cargo test --verbose
+      
   build_for_windows:
     runs-on: windows-latest
     steps:
-    - name: Install CMake
+    - name: Install vcpkg
       run: |
-        choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' -y
-    - name: Build Allegro
+        git clone https://github.com/microsoft/vcpkg.git
+        cd vcpkg
+        .\bootstrap-vcpkg.bat
+        .\vcpkg integrate install
+    - name: Install Allegro 5 with vcpkg
       run: |
-        git clone https://github.com/liballeg/allegro5.git
-        cd allegro5
-        git checkout 5.2.8
-        mkdir build
-        cd build
-        cmake ..
-        cmake --build .
+        .\vcpkg install allegro5
     - uses: actions/checkout@v3
     - name: Build
       run: cargo build --verbose
