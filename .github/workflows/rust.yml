@@ -31,8 +31,6 @@ jobs:
         cd vcpkg
         .\bootstrap-vcpkg.bat
         .\vcpkg integrate install
-    - name: Install Allegro 5 with vcpkg
-      run: |
         .\vcpkg install allegro5
     - uses: actions/checkout@v3
     - name: Build
