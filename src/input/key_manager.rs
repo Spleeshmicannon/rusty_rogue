@@ -1,7 +1,7 @@
-use crate::Engine;
+use crate::game::Engine;
 use allegro::KeyCode;
 
-
+// square root of 2
 const SPEED_MULT:f32 = 0.70710678118;
 
 pub struct KeyManager {
@@ -22,16 +22,27 @@ impl KeyManager {
             right: false,
             left: false,
             speed: 2,
+            // This is for when x speed and y speed
+            // are both increasing. Using the normal
+            // speed would make them too fast
             speed2d: (2.0 * SPEED_MULT).floor() as i32,
         }
     }
 
+    /*
+     * Chaning the speed to a new value
+     */
     #[inline]
     pub fn update_speed(&mut self, speed: i32) {
+        // updating both speed values so speed2d
+        // doesn't have to be calculated repeatedly
         self.speed = speed;
         self.speed2d = (2.0 * SPEED_MULT).floor() as i32;
     }
 
+    /*
+     * Setting the stae of each key
+     */
     #[inline]
     pub fn set_key(&mut self, keycode: KeyCode, is_down: bool) {
         match keycode {
@@ -43,6 +54,9 @@ impl KeyManager {
         }    
     }
 
+    /*
+     * Actions events based on the state of the keys
+     */
     #[inline]
     pub fn key_press(&self, engine: &mut Engine, id: usize) {
         if self.up { engine.inc_sprite_y(id, -self.speed) }

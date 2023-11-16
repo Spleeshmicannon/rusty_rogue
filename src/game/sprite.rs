@@ -10,6 +10,9 @@ pub struct Sprite {
 }
 
 impl Sprite {
+    /*
+     * Loads the bitmap and puts default/input values into the sprite.
+     */
     pub fn new(core: &Core, path:&'static str, width: i32, height: i32) -> Self {
         Sprite {
             x: 0,
