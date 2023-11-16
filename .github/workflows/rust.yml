@@ -30,6 +30,7 @@ jobs:
       run: |
         git clone https://github.com/liballeg/allegro5.git
         cd allegro5
+        git checkout v5.2.8
         mkdir build
         cd build
         cmake ..
