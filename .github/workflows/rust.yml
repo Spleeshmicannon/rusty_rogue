@@ -26,7 +26,7 @@ jobs:
       with:
         name: rusty_rogue
         path: |
-          target/x86_64-unknown-linux-gnu/release/rusty_rogue
+          target/x86_64-unknown-linux-gnu/release/
           #    - name: Upload Windows Binary
           #      uses: actions/upload-artifact@v2
           #      with:
