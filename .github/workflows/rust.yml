@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: getDeps
-      run: sudo apt-get install allegro5
+      run: sudo apt-get install liballegro5-dev
     - name: Build
       run: cargo build --verbose
     - name: Run tests
