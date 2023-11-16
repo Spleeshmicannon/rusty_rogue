@@ -23,6 +23,17 @@ jobs:
   build_for_windows:
     runs-on: windows-latest
     steps:
+    - name: Install CMake
+      run: |
+        choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' -y
+    - name: Build Allegro
+      run: |
+        git clone https://github.com/liballeg/allegro5.git
+        cd allegro5
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build .
     - uses: actions/checkout@v3
     - name: Build
       run: cargo build --verbose
