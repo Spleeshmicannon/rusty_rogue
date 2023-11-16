@@ -1,4 +1,4 @@
-use crate::game::Engine;
+use crate::game::engine::Engine;
 use allegro::KeyCode;
 
 // square root of 2
